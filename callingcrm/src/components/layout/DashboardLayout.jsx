@@ -18,7 +18,7 @@ const DashboardLayout = () => {
         setSidebarOpen={setSidebarOpen}
       />
 
-      <main className="ml-0 min-h-screen pt-20 lg:ml-55">
+      <main className="ml-0 min-h-screen pt-[72px] lg:ml-55">
         <Outlet />
       </main>
 

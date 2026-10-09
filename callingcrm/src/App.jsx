@@ -6,9 +6,9 @@ import Dashboard from "./pages/Dashboard";
 
 const PlaceholderPage = () => {
   return (
-    <div className="p-6">
+    <div className="p-5">
       <div className="rounded-xl bg-white">
-        <h2 className="text-2xl font-bold text-blue-950">Page Not In Production</h2>
+        <h2 className="text-xl font-bold text-blue-950">Page Not In Production</h2>
         <p className="mt-2 text-gray-600">This Section is currently outside the project scope</p>
 
       </div>

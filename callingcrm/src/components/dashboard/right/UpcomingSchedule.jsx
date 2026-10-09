@@ -21,33 +21,33 @@ const schedule = [
 
 const UpcomingSchedule = () => {
     return (
-        <div className="flex flex-col rounded-xl border border-blue-100 bg-white p-3 shadow-sm lg:grow">
+        <div className="flex flex-col rounded-xl border border-blue-100 bg-white p-2.5 shadow-sm lg:grow">
 
 
             {/* heading */}
             <div className="flex items-center justify-between ">
-                <div className="flex items-center justify-center gap-4 ">
-                    <CalendarDays size={18} className="text-blue-700" />
+                <div className="flex items-center justify-center gap-3 ">
+                    <CalendarDays size={17} className="text-blue-700" />
                     <h2 className="text-sm font-bold text-[#102F69]">Upcoming Schedule</h2>
                 </div>
-                <button className="text-[15px] text-blue-500 font-medium">
+                <button className="text-sm text-blue-500 font-medium">
                     View All
                 </button>
             </div>
 
             {/* Sessions */}
 
-            <div className="mt-3 lg:flex lg:flex-1 lg:flex-col lg:justify-evenly">
+            <div className="mt-2.5 lg:flex lg:flex-1 lg:flex-col lg:justify-evenly">
                 {schedule.map((item) => (
                     <div 
                     key={item.title}
-                    className="mb-4 flex gap-3 lg:mb-0" >
+                    className="mb-3 flex gap-2.5 lg:mb-0" >
                         <span className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${
                             item.color
                         }`}></span>
                         <div>
-                            <p className="text-[15px] font-bold text-[#18396F]">{item.title}</p>
-                            <p className="mt-0.5 text-[13px] text-blue-800">{item.time}</p>
+                            <p className="text-sm font-bold text-[#18396F]">{item.title}</p>
+                            <p className="mt-0.5 text-xs text-blue-800">{item.time}</p>
                         </div>
                     </div>
                 ))}

@@ -8,7 +8,7 @@ import {
 
 const Header = ({ setSidebarOpen }) => {
   return (
-    <header className="fixed left-0 right-0 top-0 z-30 h-20 border-b border-blue-100 bg-white lg:left-55 ">
+    <header className="fixed left-0 right-0 top-0 z-30 h-[72px] border-b border-blue-100 bg-white lg:left-55 ">
       <div className="flex h-full items-center px-3 sm:px-6 bg-[#062A78]">
 
         {/* Mobile menu button */}
@@ -16,11 +16,11 @@ const Header = ({ setSidebarOpen }) => {
           onClick={() => setSidebarOpen(true)}
           className="mr-2 shrink-0 rounded-lg p-2 text-white lg:hidden"
         >
-          <Menu size={24} />
+          <Menu size={22} />
         </button>
 
         {/* Search */}
-        <div className="flex min-w-0 flex-1 items-center rounded-full bg-blue-50 px-3 py-2.5 sm:max-w-2xl sm:px-4">
+        <div className="flex min-w-0 flex-1 items-center rounded-full bg-blue-50 px-3 py-2 sm:max-w-2xl sm:px-4">
           <Search
             size={18}
             className="shrink-0 text-blue-700"
@@ -41,16 +41,16 @@ const Header = ({ setSidebarOpen }) => {
         <div className="ml-2 flex shrink-0 items-center gap-2 sm:ml-6 sm:gap-5">
 
           {/* Quick Call */}
-          <button className="hidden items-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-sm font-medium text-white sm:flex">
-            <Phone size={18} />
+          <button className="hidden items-center gap-2 rounded-full bg-blue-600 px-4 py-2.5 text-sm font-medium text-white sm:flex">
+            <Phone size={17} />
             Quick Call
           </button>
 
           {/* Notification */}
           <button className="relative text-white">
-            <Bell size={22} />
+            <Bell size={20} />
 
-            <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+            <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] text-white">
               3
             </span>
           </button>
@@ -58,7 +58,7 @@ const Header = ({ setSidebarOpen }) => {
           {/* User */}
           <div className="flex items-center gap-2 border-l border-gray-400 pl-2 sm:gap-3 sm:pl-5">
 
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-100 font-semibold text-blue-700 sm:h-10 sm:w-10">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-700 sm:h-9 sm:w-9">
               A
             </div>
 
@@ -73,7 +73,7 @@ const Header = ({ setSidebarOpen }) => {
             </div>
 
             <ChevronDown
-              size={18}
+              size={16}
               className="hidden text-gray-200 sm:block"
             />
           </div>

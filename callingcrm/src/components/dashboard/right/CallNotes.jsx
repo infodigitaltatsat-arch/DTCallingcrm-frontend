@@ -15,7 +15,7 @@ const CallNotes = () =>{
     };
 
     return(
-        <div className="flex flex-col rounded-xl border border-blue-100 bg-blue-50 p-3 shadow-sm lg:grow">
+        <div className="flex flex-col rounded-xl border border-blue-100 bg-blue-50 p-2.5 shadow-sm lg:grow">
             {/* new */}
             <div className="flex items-center justify-between">
                 <div className="flex gap-4 items-center  ">
@@ -27,14 +27,14 @@ const CallNotes = () =>{
 
             </div>
 
-            <textarea className="mt-2 h-[48px] w-full resize-none rounded-lg border border-blue-100 bg-white px-3 py-2 text-sm text-[#102F69] outline-none placeholder:text-slate-400 focus:border-blue-400 lg:flex-1 lg:min-h-[72px]"
+            <textarea className="mt-2 h-[44px] w-full resize-none rounded-lg border border-blue-100 bg-white px-2.5 py-1.5 text-sm text-[#102F69] outline-none placeholder:text-slate-400 focus:border-blue-400 lg:flex-1 lg:min-h-[64px]"
             value={note}
             onChange={(event)=>setNote(event.target.value)}
             placeholder="Add notes about this call..."/>
             <button 
             type="button"
             onClick={handleSave}
-            className="mt-2 h-[34px] w-full rounded-lg bg-blue-600 text-md font-medium text-white transition hover:bg-blue-700">{saved ? "Note saved" : "Save Note"}</button>
+            className="mt-2 h-8 w-full rounded-lg bg-blue-600 text-sm font-medium text-white transition hover:bg-blue-700">{saved ? "Note saved" : "Save Note"}</button>
         </div>
     )
 

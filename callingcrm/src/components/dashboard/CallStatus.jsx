@@ -17,17 +17,17 @@ const CallStatus = () => {
     <section className="min-w-0 overflow-hidden rounded-xl bg-[#0647B8] p-2.5 text-white shadow-sm sm:p-3">
       {/* Header */}
       <div className="flex items-center gap-2">
-        <Phone size={20} strokeWidth={2.5} />
+        <Phone size={18} strokeWidth={2.5} />
 
-        <h2 className="text-sm font-bold sm:text-base">
+        <h2 className="text-sm font-bold sm:text-[15px]">
           Call Status
         </h2>
       </div>
 
       {/* Chart + Status List */}
-      <div className="mt-2 grid min-w-0 grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center gap-2">
+      <div className="mt-2 grid min-w-0 grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center gap-1.5">
         {/* Donut Chart */}
-        <div className="relative h-[185px] min-w-0 sm:h-[195px]">
+        <div className="relative h-[168px] min-w-0 sm:h-[178px]">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -65,7 +65,7 @@ const CallStatus = () => {
         </div>
 
         {/* Status List */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           {callStatusData.map((status, index) => (
             <div
               key={status.name}

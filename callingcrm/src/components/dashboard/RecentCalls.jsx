@@ -19,9 +19,9 @@ const RecentCalls = () => {
   return (
     <section className="min-w-0 overflow-hidden rounded-xl border border-blue-100 bg-white shadow-sm">
       {/* Header */}
-      <div className="flex h-[52px] items-center justify-between border-b border-slate-100 px-4">
-        <div className="flex items-center gap-2.5">
-          <Phone size={20} className="text-blue-700" />
+      <div className="flex h-[46px] items-center justify-between border-b border-slate-100 px-3">
+        <div className="flex items-center gap-2">
+          <Phone size={18} className="text-blue-700" />
           <h2 className="text-[15px] font-bold text-[#102F69]">
             Recent Calls
           </h2>
@@ -52,13 +52,13 @@ const RecentCalls = () => {
             {recentCalls.map((call) => (
               <tr
                 key={call.id}
-                className="h-[42px] border-t border-slate-100 text-[10px] text-[#18396F] sm:text-[11px]"
+                className="h-[38px] border-t border-slate-100 text-[10px] text-[#18396F] sm:text-[11px]"
               >
                 {/* Lead */}
                 <td className="px-2 sm:px-3">
                   <div className="flex min-w-0 items-center gap-1.5">
                     <span
-                      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[9px] font-bold text-white ${call.avatarColor}`}
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[8px] font-bold text-white ${call.avatarColor}`}
                     >
                       {call.initials}
                     </span>

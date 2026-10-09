@@ -6,9 +6,9 @@ import { todaysFollowUps } from "../../data/followups/todaysFollowUps";
 const TodayFollowUps = () => {
   return (
     <section className=" min-w-0 overflow-hidden rounded-xl border border-blue-100 bg-white shadow-sm">
-      <div className="flex h-[52px] items-center justify-between border-b border-slate-100 px-4">
-        <div className="flex items-center gap-2.5">
-          <CalendarDays size={21} className="text-blue-700" />
+      <div className="flex h-[46px] items-center justify-between border-b border-slate-100 px-3">
+        <div className="flex items-center gap-2">
+          <CalendarDays size={19} className="text-blue-700" />
           <h2 className="text-[15px] font-bold text-[#102F69]">
             Today's Follow-ups
           </h2>
@@ -22,18 +22,18 @@ const TodayFollowUps = () => {
         </Link>
       </div>
 
-      <div className="px-4">
+      <div className="px-3">
         {todaysFollowUps.map((item, index) => (
           <div
             key={item.id}
-            className={`grid min-h-[76px] grid-cols-[38px_minmax(0,1fr)_78px_70px] items-center gap-2 ${
+            className={`grid min-h-[68px] grid-cols-[34px_minmax(0,1fr)_74px_66px] items-center gap-1.5 ${
               index !== todaysFollowUps.length - 1
                 ? "border-b border-slate-200"
                 : ""
             }`}
           >
             <div
-              className={`flex h-[38px] w-[38px] items-center justify-center rounded-full text-xs font-bold text-white ${item.avatarColor}`}
+              className={`flex h-[34px] w-[34px] items-center justify-center rounded-full text-[11px] font-bold text-white ${item.avatarColor}`}
             >
               {item.initials}
             </div>
@@ -42,7 +42,7 @@ const TodayFollowUps = () => {
               <p className="truncate text-[12px] font-bold text-[#18396F]">
                 {item.name}
               </p>
-              <p className="mt-1 truncate text-[11px] text-[#55749F]">
+              <p className="mt-0.5 truncate text-[10px] text-[#55749F]">
                 {item.phone}
               </p>
             </div>

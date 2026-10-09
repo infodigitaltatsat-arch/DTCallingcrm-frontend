@@ -12,16 +12,16 @@ const LeadPipeline = () => {
   const total = leadPipelineData.length;
 
   return (
-    <section className="w-full min-w-0 rounded-xl border border-blue-100 bg-white px-4 py-3 shadow-sm sm:px-5 sm:py-4">
+    <section className="w-full min-w-0 rounded-xl border border-blue-100 bg-white px-3 py-2.5 shadow-sm sm:px-4 sm:py-3">
       {/* Header */}
-      <div className="mb-3 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+      <div className="mb-2.5 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
           <Funnel
-            size={22}
+            size={20}
             strokeWidth={2.5}
             className="fill-blue-800 text-blue-800"
           />
-          <h2 className="text-base font-bold text-blue-950 sm:text-lg">
+          <h2 className="text-[15px] font-bold text-blue-950 sm:text-base">
             Lead Pipeline
           </h2>
         </div>
@@ -56,7 +56,7 @@ const LeadPipeline = () => {
             <div
               key={stage.id}
               className={[
-                "flex h-16 min-w-0 flex-1 items-center rounded-lg sm:h-[72px] sm:rounded-none",
+                "flex h-14 min-w-0 flex-1 items-center rounded-lg sm:h-16 sm:rounded-none",
                 "[clip-path:none] sm:[clip-path:var(--clip)]",
                 isFirst ? "sm:rounded-l-xl" : "",
                 isLast ? "sm:rounded-r-xl" : "",
@@ -67,15 +67,15 @@ const LeadPipeline = () => {
                 backgroundColor: stage.color || FALLBACK_COLORS[index],
                 color: textColor,
                 // padding so text clears the notch / arrow
-                paddingLeft: isFirst ? 20 : ARROW + 14,
-                paddingRight: ARROW,
+                paddingLeft: isFirst ? 18 : ARROW + 12,
+                paddingRight: ARROW - 2,
               }}
             >
               <div className="min-w-0">
-                <p className="truncate text-xs font-medium sm:text-[13px]">
+                <p className="truncate text-[11px] font-medium sm:text-xs">
                   {stage.label}
                 </p>
-                <p className="mt-1 text-lg font-bold leading-none sm:text-xl">
+                <p className="mt-1 text-base font-bold leading-none sm:text-lg">
                   {stage.value}
                 </p>
               </div>

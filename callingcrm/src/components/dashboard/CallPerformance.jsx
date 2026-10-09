@@ -21,17 +21,17 @@ const CallPerformance = () => {
         <section className='min-w-0 overflow-hidden rounded-xl bg-[#0647B8] p-2.5 text-white shadow-sm sm:p-3'>
             <div className='flex items-center justify-between'>
                 <div className='flex min-w-0 items-center gap-2'>
-                    <BarChart3 size={20} strokeWidth={2.5} />
-                    <h2 className='truncate text-sm font-bold sm:text-base'>Call Performance</h2>
+                    <BarChart3 size={18} strokeWidth={2.5} />
+                    <h2 className='truncate text-sm font-bold sm:text-[15px]'>Call Performance</h2>
                 </div>
 
-                <button className='flex shrink-0 items-center gap-1.5 rounded-lg border border-blue-400/60 bg-blue-700/40 px-2.5 py-1 text-xs sm:text-sm'>
+                <button className='flex shrink-0 items-center gap-1.5 rounded-lg border border-blue-400/60 bg-blue-700/40 px-2 py-1 text-xs sm:text-[13px]'>
                     Last 7 Days
                     <ChevronDown size={14}/>
                 </button>
             </div>
 
-            <div className='mt-2.5 flex flex-wrap justify-end gap-x-3 gap-y-1 text-xs'>
+            <div className='mt-2 flex flex-wrap justify-end gap-x-2.5 gap-y-1 text-[11px]'>
                 <span className='flex items-center gap-1.5'>
                     <span className='h-2.5 w-2.5 rounded-full bg-blue-400'/>
                         Connected
@@ -47,7 +47,7 @@ const CallPerformance = () => {
                 </span>
             </div>
 
-            <div className='mt-1 h-[195px] w-full min-w-0 sm:h-[205px]'>
+            <div className='mt-1 h-[178px] w-full min-w-0 sm:h-[188px]'>
                 <ResponsiveContainer width="100%" height="100%">
                     <LineChart
                         data={performanceData}
