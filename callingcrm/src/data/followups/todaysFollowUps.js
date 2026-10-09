@@ -1,0 +1,43 @@
+
+export const todaysFollowUps = [
+  {
+    id: 1,
+    name: "Rahul Sharma",
+    phone: "+91 98765 43210",
+    time: "10:30 AM",
+    priority: "High",
+    initials: "RS",
+    avatarColor: "bg-blue-600",
+    priorityStyle: "bg-red-50 text-red-500",
+  },
+  {
+    id: 2,
+    name: "Amit Kumar",
+    phone: "+91 87654 32109",
+    time: "11:45 AM",
+    priority: "Medium",
+    initials: "AK",
+    avatarColor: "bg-purple-600",
+    priorityStyle: "bg-amber-50 text-amber-600",
+  },
+  {
+    id: 3,
+    name: "Neha Singh",
+    phone: "+91 76543 21098",
+    time: "02:15 PM",
+    priority: "Low",
+    initials: "NS",
+    avatarColor: "bg-emerald-500",
+    priorityStyle: "bg-emerald-50 text-emerald-600",
+  },
+  {
+    id: 4,
+    name: "Pawan Kumar",
+    phone: "+91 65432 10987",
+    time: "03:30 PM",
+    priority: "Medium",
+    initials: "PK",
+    avatarColor: "bg-amber-500",
+    priorityStyle: "bg-amber-50 text-amber-600",
+  },
+];
