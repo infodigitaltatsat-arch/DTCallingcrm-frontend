@@ -1,4 +1,4 @@
-import { useNavigate, } from 'react-router-dom'
+import { useNavigate,Link } from 'react-router-dom'
 import { useState } from 'react'
 import api from '../services/api'
 
@@ -90,6 +90,17 @@ const Login = () => {
                     className="w-full rounded-lg bg-blue-700 cursor-pointer px-4 py-3 font-semibold text-white hover:bg-blue-800 disabled:opacity-60">
                     {loading ? "Signing in..." : "Sign in"}
                 </button>
+                <div className="flex items-center justify-center ">
+                    <p className='text-sm text-slate-600 '>
+                        Don't have a CallingCRM account? -
+                        <Link 
+                        to='/register'
+                        className='text-blue-600 border-b hover:text-blue-800 transition-color duration-300'
+                        >
+                          Register
+                        </Link>
+                    </p>
+                </div>
             </form>
         </main>
     )
