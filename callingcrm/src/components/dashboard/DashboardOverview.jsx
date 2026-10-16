@@ -1,4 +1,7 @@
-import { CalendarDays, ChevronDown } from 'lucide-react'
+import {useEffect, useState} from 'react'
+import api from '../../services/api'
+
+import { CalendarDays } from 'lucide-react'
 import DashboardStatCard from './DashboardStatCard'
 
 import { dashboardStats } from '../../data/Dashboard/dashboardStats'
@@ -8,6 +11,36 @@ import RecentCalls from './RecentCalls'
 import LeadPipelines from './LeadPipelines'
 
 const DashboardOverview = () => {
+
+    const [stats, setStats] = useState(dashboardStats);
+
+    useEffect(() => {
+        const fetchDashboardStats = async () =>{
+            try{
+                const response = await api.get('/dashboard/summary')
+                const summary = response.data.summary || {}
+                const callsByStatus = response.data.callsByStatus || []
+                const missedCalls = callsByStatus.find((item)=>item._id === 'Missed')?.count || 0
+                const completedCalls = callsByStatus.find((item)=>item._id === 'Completed')?.count || 0
+                setStats((currentStats) => currentStats.map((stat) => {
+                    switch(stat.title){
+                        case 'Total Leads' : return {...stat, value:summary.totalLeads}
+                        case 'Calls Today' : return {...stat, value:summary.callsToday}
+                        case 'Connected Calls' : return {...stat, value:completedCalls}
+                        case 'Missed Calls' : return {...stat, value:missedCalls}
+                        case 'Follow-ups Due' : return {...stat, value:summary.pendingFollowUps}
+                        default : return stat
+                    }
+                }))
+            }
+            catch(error){
+                console.error("Failed to load dashboard stats:", error)
+            }
+        }
+        fetchDashboardStats()
+    }, [])
+
+
     return (
         <section className='w-full'>
 
@@ -38,7 +71,7 @@ const DashboardOverview = () => {
 
             {/* Statistics */}
             <div className='mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3'>
-                {dashboardStats.map((stat) => (
+                {stats.map((stat) => (
                     <DashboardStatCard
                         key={stat.title}
                         title={stat.title}

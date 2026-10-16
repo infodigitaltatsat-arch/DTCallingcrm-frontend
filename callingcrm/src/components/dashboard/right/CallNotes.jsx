@@ -1,18 +1,33 @@
 import { useState } from "react";
 import { ChevronDown, FilePenLine } from "lucide-react";
 
+const STORAGE_KEY = "crm_call_notes"
+
 const CallNotes = () =>{
-    const [note, setNote] = useState("");
+    const [note, setNote] = useState(()=>{
+        try{
+            return localStorage.getItem(STORAGE_KEY) || "";
+        }catch{
+            return ""
+        }
+    });
+
     const [saved, setSaved] = useState(false);
+    const [error, setError] = useState("");
 
-    const handleSave = () =>{
-        if(!note.trim()) return;
-
+    const handleSave =() =>{
+        try{
+            localStorage.setItem(STORAGE_KEY,note.trim());
+        setNote(note.trim());
+        setError("");
         setSaved(true);
-        setTimeout(()=>{
-            setSaved(false)
-        },2000)
-    };
+        }
+     catch{
+        setError("Could not save the notes, Please try again");
+        setSaved(false)
+     }
+    }
+
 
     return(
         <div className="flex flex-col rounded-xl border border-blue-100 bg-blue-50 p-2.5 shadow-sm lg:grow">
@@ -35,6 +50,7 @@ const CallNotes = () =>{
             type="button"
             onClick={handleSave}
             className="mt-2 h-8 w-full rounded-lg bg-blue-600 text-sm font-medium text-white transition hover:bg-blue-700">{saved ? "Note saved" : "Save Note"}</button>
+            {error && <p role="alert" className="mt-2 text-xs text-red-600">{error}</p>}
         </div>
     )
 

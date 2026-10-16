@@ -1,9 +1,52 @@
 
 import { Phone } from "lucide-react";
 import { Link } from "react-router-dom";
-import { recentCalls } from "../../data/followups/RecentCalls";
+import {useEffect, useState} from "react";
+import api from '../../services/api'
+import { recentCalls as sampleRecentCalls } from "../../data/followups/RecentCalls";
 
 const RecentCalls = () => {
+
+  const [callMessage, setCallMessage] = useState("");
+  const [recentCalls, setRecentCalls] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showingSampleCalls, setShowingSampleCalls] = useState(false);
+
+  useEffect(()=>{
+    const fetchCalls = async () =>{
+      try{
+        const response = await api.get('/calls');
+        const calls = (response.data.calls || []).slice(0, 5).map((call)=>({
+          id:call._id,
+          name:call.contact?.name || "Unknown Contact",
+          agent:call.agent?.name || "Unknown",
+          duration: `${Math.floor((call.duration || 0)/60)}m${(call.duration || 0)%60}s`,
+          status: call.status === "Completed" ? "Connected" 
+          : call.status === "Missed" ? "Missed" : "No Answer",
+          initials:(call.contact?.name || "UC")
+          .split(" ")
+          .map((part)=>part[0])
+          .join("")
+          .slice(0,2)
+          .toUpperCase(),
+          avatarColor:"bg-blue-600",
+        }));
+        setShowingSampleCalls(calls.length === 0);
+        setRecentCalls(calls.length > 0 ? calls : sampleRecentCalls.slice(0, 5));
+      }catch(error){
+        console.error("Failed to load recent calls:",error);
+        setShowingSampleCalls(true);
+        setRecentCalls(sampleRecentCalls.slice(0, 5));
+      }finally{
+        setLoading(false)
+      }
+    };
+    fetchCalls();
+  },[])
+
+
+
+
   const statusStyles = {
     Connected: "bg-emerald-50 text-emerald-700",
     Missed: "bg-red-50 text-red-600",
@@ -25,6 +68,11 @@ const RecentCalls = () => {
           <h2 className="text-[15px] font-bold text-[#102F69]">
             Recent Calls
           </h2>
+          {showingSampleCalls && (
+            <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-medium text-amber-700">
+              Sample data
+            </span>
+          )}
         </div>
 
         <Link
@@ -49,7 +97,17 @@ const RecentCalls = () => {
           </thead>
 
           <tbody>
-            {recentCalls.map((call) => (
+            {loading ? (
+              <tr>
+                <td
+                  colSpan={5}
+                  role="status"
+                  className="h-[190px] border-t border-slate-100 text-center text-sm text-slate-500"
+                >
+                  Loading recent calls...
+                </td>
+              </tr>
+            ) : recentCalls.map((call) => (
               <tr
                 key={call.id}
                 className="h-[38px] border-t border-slate-100 text-[10px] text-[#18396F] sm:text-[11px]"
@@ -98,24 +156,22 @@ const RecentCalls = () => {
                   ) : (
                     <button
                       type="button"
-                      onClick={() =>
-                        window.dispatchEvent(
-                          new CustomEvent("crm:quick-call", {
-                            detail: { call },
-                          })
-                        )
-                      }
+                      onClick={() => setCallMessage(`calling is not config yet for ${call.name}`)}
                       className="font-medium text-blue-700 underline underline-offset-2"
-                    >
-                      Call
-                    </button>
-                  )}
+                    >Call</button>)}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      {callMessage && (
+        <div role="status" className="border-t border-blue-100 bg-blue-50 px-3 py-2 text-xs text-blue-800">
+          {callMessage}
+        </div>
+      )}
+
+
     </section>
   );
 };

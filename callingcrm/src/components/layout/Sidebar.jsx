@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 
 import { navigationItems } from "../../data/navigation/navigationItems";
-import { Badge } from "lucide-react";
 
 import logo from '../../assets/Logo/logo.png'
 
@@ -39,7 +38,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         key={item.label}
                         to={item.path}
                         onClick={() => setSidebarOpen(false)}
-                        className={({ isActive }) => `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition ${isActive ? "bg-blue-600 text-white" : "text-blue-100 hover-bg-white/10"}`}>
+                        className={({ isActive }) => `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition ${isActive ? "bg-blue-600 text-white" : "text-blue-100 hover:bg-white/10"}`}>
                         <Icon size={18} />
                         <span className="">{item.label}</span>
                         {item.badge && (

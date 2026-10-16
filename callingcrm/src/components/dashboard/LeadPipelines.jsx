@@ -1,19 +1,38 @@
+import { useEffect, useState } from "react";
 import { Funnel } from "lucide-react";
-import { leadPipelineData } from "../../data/Dashboard/leadPipelinesData";
+import api from "../../services/api";
 
-// Fallback gradient (dark → light blue) if a stage has no `color` in your data
-const FALLBACK_COLORS = ["#0B3FA8", "#2F6FDB", "#3F7CE6", "#6FA3F5", "#7FB0F8"];
+const stages = [
+  { id: 1, status: "New", label: "New Leads", color: "#1646B5" },
+  { id: 2, status: "Interested", label: "Interested", color: "#3975D9" },
+  { id: 3, status: "Follow-up", label: "Follow-up", color: "#598CE8" },
+  { id: 4, status: "Converted", label: "Converted", color: "#83B0F0" },
+  { id: 5, status: "Lost", label: "Lost", color: "#9BC3F5" },
+];
 
-// Arrow depth and white gap between stages (in px)
 const ARROW = 22;
-const GAP = 4;
 
 const LeadPipeline = () => {
-  const total = leadPipelineData.length;
+  const [leads, setLeads] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLeads = async () => {
+      try {
+        const response = await api.get("/leads");
+        setLeads(response.data.leads || []);
+      } catch (error) {
+        console.error("Failed to load lead pipeline:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLeads();
+  }, []);
 
   return (
     <section className="w-full min-w-0 rounded-xl border border-blue-100 bg-white px-3 py-2.5 shadow-sm sm:px-4 sm:py-3">
-      {/* Header */}
       <div className="mb-2.5 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <Funnel
@@ -25,64 +44,62 @@ const LeadPipeline = () => {
             Lead Pipeline
           </h2>
         </div>
-
-        <button
-          type="button"
-          className="text-xs font-medium text-blue-700 hover:underline sm:text-sm"
-        >
-          View Details
-        </button>
       </div>
 
-      {/* Pipeline */}
-      <div className="flex flex-col gap-2 sm:flex-row sm:gap-0">
-        {leadPipelineData.map((stage, index) => {
-          const isFirst = index === 0;
-          const isLast = index === total - 1;
+      {loading ? (
+        <p className="p-4 text-center text-sm text-slate-500">
+          Loading lead pipeline...
+        </p>
+      ) : (
+        <div className="flex flex-col gap-2 sm:flex-row sm:gap-0">
+          {stages.map((stage, index) => {
+            const isFirst = index === 0;
+            const isLast = index === stages.length - 1;
+            const value = leads.filter(
+              (lead) => (lead.status || "New") === stage.status
+            ).length;
 
-          // Pointed right edge for all except last; notched left edge for all except first
-          let clip;
-          if (isFirst) {
-            clip = `polygon(0 0, calc(100% - ${ARROW}px) 0, 100% 50%, calc(100% - ${ARROW}px) 100%, 0 100%)`;
-          } else if (isLast) {
-            clip = `polygon(0 0, 100% 0, 100% 100%, 0 100%, ${ARROW}px 50%)`;
-          } else {
-            clip = `polygon(0 0, calc(100% - ${ARROW}px) 0, 100% 50%, calc(100% - ${ARROW}px) 100%, 0 100%, ${ARROW}px 50%)`;
-          }
+            let clip;
 
-          const textColor = index === 3 ? "#16417E" : "#FFFFFF";
+            if (isFirst) {
+              clip = `polygon(0 0, calc(100% - ${ARROW}px) 0, 100% 50%, calc(100% - ${ARROW}px) 100%, 0 100%)`;
+            } else if (isLast) {
+              clip = `polygon(0 0, 100% 0, 100% 100%, 0 100%, ${ARROW}px 50%)`;
+            } else {
+              clip = `polygon(0 0, calc(100% - ${ARROW}px) 0, 100% 50%, calc(100% - ${ARROW}px) 100%, 0 100%, ${ARROW}px 50%)`;
+            }
 
-          return (
-            <div
-              key={stage.id}
-              className={[
-                "flex h-14 min-w-0 flex-1 items-center rounded-lg sm:h-16 sm:rounded-none",
-                "[clip-path:none] sm:[clip-path:var(--clip)]",
-                isFirst ? "sm:rounded-l-xl" : "",
-                isLast ? "sm:rounded-r-xl" : "",
-                !isFirst ? `sm:-ml-[${ARROW - GAP}px]` : "",
-              ].join(" ")}
-              style={{
-                "--clip": clip,
-                backgroundColor: stage.color || FALLBACK_COLORS[index],
-                color: textColor,
-                // padding so text clears the notch / arrow
-                paddingLeft: isFirst ? 18 : ARROW + 12,
-                paddingRight: ARROW - 2,
-              }}
-            >
-              <div className="min-w-0">
-                <p className="truncate text-[11px] font-medium sm:text-xs">
-                  {stage.label}
-                </p>
-                <p className="mt-1 text-base font-bold leading-none sm:text-lg">
-                  {stage.value}
-                </p>
+            return (
+              <div
+                key={stage.id}
+                className={[
+                  "flex h-14 min-w-0 flex-1 items-center rounded-lg sm:h-16 sm:rounded-none",
+                  "[clip-path:none] sm:[clip-path:var(--clip)]",
+                  isFirst ? "sm:rounded-l-xl" : "",
+                  isLast ? "sm:rounded-r-xl" : "",
+                  !isFirst ? "sm:-ml-[18px]" : "",
+                ].join(" ")}
+                style={{
+                  "--clip": clip,
+                  backgroundColor: stage.color,
+                  color: index === 3 ? "#153D79" : "#FFFFFF",
+                  paddingLeft: isFirst ? 18 : ARROW + 12,
+                  paddingRight: ARROW - 2,
+                }}
+              >
+                <div className="min-w-0">
+                  <p className="truncate text-[11px] font-medium sm:text-xs">
+                    {stage.label}
+                  </p>
+                  <p className="mt-1 text-base font-bold leading-none sm:text-lg">
+                    {value.toLocaleString()}
+                  </p>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 };
